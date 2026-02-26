@@ -1,0 +1,9 @@
+[package]
+name = "pac-protocol"
+version = "0.1.0"
+edition = "2021"
+description = "Shared protocol definitions for PAC Hybride system (STM32, Screen, ESP32)"
+
+[features]
+default = []
+std = []
