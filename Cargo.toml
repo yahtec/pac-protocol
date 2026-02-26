@@ -1,9 +1,12 @@
 [package]
 name = "pac-protocol"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Shared protocol definitions for PAC Hybride system (STM32, Screen, ESP32)"
 
+[dependencies]
+serde = { version = "1", features = ["derive"], optional = true }
+
 [features]
 default = []
-std = []
+std = ["serde"]

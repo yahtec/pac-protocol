@@ -84,3 +84,25 @@ pub fn can_frames_to_ssid(frames: &[[u8; 5]; 7]) -> [u8; 32] {
     }
     ssid
 }
+
+/// Convert i16 to f32 with division by scale factor.
+/// Used for converting raw sensor registers to display values.
+/// Example: `i16_to_f32(245, 10.0)` → `24.5`
+#[inline]
+pub fn i16_to_f32(val: i16, scale: f32) -> f32 {
+    val as f32 / scale
+}
+
+/// Convert f32 to i16 with clamping and optional scale multiplication.
+/// Safe conversion that clamps to i16 range.
+#[inline]
+pub fn f32_to_i16(val: f32, scale: f32) -> i16 {
+    let scaled = val * scale;
+    if scaled > i16::MAX as f32 {
+        i16::MAX
+    } else if scaled < i16::MIN as f32 {
+        i16::MIN
+    } else {
+        scaled as i16
+    }
+}
