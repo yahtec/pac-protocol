@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo view yahtec/pac-protocol --json url)",
+      "Bash(gh repo create yahtec/pac-protocol --public --source=. --remote=origin --push --description \"Shared PAC protocol crate for cross-project protocol definitions\")"
+    ]
+  }
+}
