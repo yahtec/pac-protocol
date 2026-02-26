@@ -23,8 +23,25 @@ pub const SSID_CAN_FRAMES: usize = 7;
 /// Bytes per SSID CAN frame (bytes 3-7 of the 8-byte CAN frame)
 pub const SSID_BYTES_PER_FRAME: usize = 5;
 
-/// Total polling cycle length
+/// Total polling cycle length (legacy, kept for reference)
 pub const CAN_POLL_CYCLE_LENGTH: u8 = 72;
+
+// ─── Broadcast mode constants ───
+
+/// Broadcast cycle interval in milliseconds (STM32 sends all GET data every N ms)
+pub const CAN_BROADCAST_INTERVAL_MS: u64 = 50;
+
+/// Timeout per read attempt in the listen window (ms)
+pub const CAN_LISTEN_TIMEOUT_MS: u64 = 5;
+
+/// Gap timeout to detect end of broadcast burst on receiver side (ms)
+pub const CAN_RECEIVE_GAP_MS: u64 = 3;
+
+/// SSID and version frames are sent every Nth broadcast cycle
+pub const CAN_SLOW_BROADCAST_DIVISOR: u16 = 10;
+
+/// Number of SET command slots per Screen cycle (essential + 1 rotating)
+pub const CAN_SET_CYCLE_LENGTH: u8 = 16;
 
 /// CAN register IDs with their properties.
 /// Each register has a canonical name, CAN wire ID, and scaling info.
