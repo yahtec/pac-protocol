@@ -52,34 +52,26 @@ pub fn u16_to_bits(code: u16) -> [bool; 16] {
     bits
 }
 
-/// Pack SSID bytes (up to 32) into 7 CAN frame payloads of 5 bytes each.
-/// Returns array of 7 arrays of 5 bytes.
-pub fn ssid_to_can_frames(ssid: &[u8; 32]) -> [[u8; 5]; 7] {
-    let mut frames = [[0u8; 5]; 7];
+/// Pack SSID bytes (up to 32) into 16 CAN frame payloads of 2 bytes each.
+/// Each payload fits in the standard CAN frame format (2 data bytes + CRC).
+pub fn ssid_to_can_frames(ssid: &[u8; 32]) -> [[u8; 2]; 16] {
+    let mut frames = [[0u8; 2]; 16];
     let mut i = 0;
-    while i < 7 {
-        let base = i * 5;
-        let mut j = 0;
-        while j < 5 && base + j < 32 {
-            frames[i][j] = ssid[base + j];
-            j += 1;
-        }
+    while i < 16 {
+        frames[i][0] = ssid[i * 2];
+        frames[i][1] = ssid[i * 2 + 1];
         i += 1;
     }
     frames
 }
 
-/// Unpack 7 CAN frame payloads of 5 bytes each into a 32-byte SSID buffer.
-pub fn can_frames_to_ssid(frames: &[[u8; 5]; 7]) -> [u8; 32] {
+/// Unpack 16 CAN frame payloads of 2 bytes each into a 32-byte SSID buffer.
+pub fn can_frames_to_ssid(frames: &[[u8; 2]; 16]) -> [u8; 32] {
     let mut ssid = [0u8; 32];
     let mut i = 0;
-    while i < 7 {
-        let base = i * 5;
-        let mut j = 0;
-        while j < 5 && base + j < 32 {
-            ssid[base + j] = frames[i][j];
-            j += 1;
-        }
+    while i < 16 {
+        ssid[i * 2] = frames[i][0];
+        ssid[i * 2 + 1] = frames[i][1];
         i += 1;
     }
     ssid
