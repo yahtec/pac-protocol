@@ -7,6 +7,7 @@ pub mod convert;
 pub mod version;
 pub mod spi;
 pub mod modbus;
+pub mod ota;
 
 #[cfg(feature = "std")]
 pub mod http;
